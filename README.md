@@ -6,3 +6,4 @@ Open-source implementation of Google's LaMDA in PyTorch. The totally not sentien
 - Gated GELU Activation
 - GPT-like Decoder Only
 - Autoregressive 
+- Sentencepiece Byte-pair encoded tokenizer
