@@ -1,5 +1,5 @@
 ## LaMDA-pytorch
-Open-source implementation of Google's [LaMDA](https://arxiv.org/abs/2201.08239) in PyTorch. The totally not sentient AI. This repository will cover the 2B paramater implementation of the model.
+Open-source implementation of Google's [LaMDA research paper](https://arxiv.org/abs/2201.08239) in PyTorch. The totally not sentient AI. This repository will cover the 2B paramater implementation of the model.
 
 ## In collaboration with:
 - [Dr. Phil 'Lucid' Wang](https://github.com/lucidrains)
