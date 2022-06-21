@@ -17,5 +17,5 @@ Open-source implementation of Google's LaMDA in PyTorch. The totally not sentien
 - [ ] Add pip installer with PyPI
 - [ ] Add pre-training script
 - [ ] Integrate Huggingface datasets
-- [ ] Use The Pile from Eleuther AI 
+- [ ] Use [The Pile](https://github.com/EleutherAI/the-pile) from Eleuther AI 
 - [ ] Implement Sentencepiece tokenizer
