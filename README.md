@@ -4,7 +4,7 @@ Open-source implementation of Google's LaMDA in PyTorch. The totally not sentien
 ## In collaboration with:
 - [Dr. Phil 'Lucid' Wang](https://github.com/lucidrains)
 
-## Notes about architecture:
+## Notes about LaMDA:
 - T5 Relative Positional Bias
 - Gated GELU Activation
 - GPT-like Decoder Only
