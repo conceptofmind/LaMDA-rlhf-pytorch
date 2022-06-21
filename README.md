@@ -1,2 +1,8 @@
-# LaMDA-pytorch
+## LaMDA-pytorch
 Open-source implementation of Google's LaMDA in PyTorch. The totally not sentient AI.
+
+## Notes about architecture:
+- T5 Relative Positional Bias
+- Gated GELU Activation
+- GPT-like Decoder Only
+- Autoregressive 
