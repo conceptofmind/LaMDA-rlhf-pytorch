@@ -2,7 +2,7 @@
 Open-source implementation of Google's [LaMDA research paper](https://arxiv.org/abs/2201.08239) in PyTorch. The totally not sentient AI. This repository will cover the 2B paramater implementation of the model as that is likely what most can afford to train. You can review Google's latetst blog post from 2022 which details LaMDA [here](https://ai.googleblog.com/2022/01/lamda-towards-safe-grounded-and-high.html). You can also view their previous blog post from 2021 on the model [here](https://blog.google/technology/ai/lamda/).
 
 ## Acknowledgement:
-I have been greatly inspired by the brilliant code of [Dr. Phil 'Lucid' Wang](https://github.com/lucidrains). Please check out his [open-source implementations](https://github.com/lucidrains) of multiple different transformer architectures and support his work.
+I have been greatly inspired by the brilliant code of [Dr. Phil 'Lucid' Wang](https://github.com/lucidrains). Please check out his [open-source implementations](https://github.com/lucidrains) of multiple different transformer architectures and [support](https://github.com/sponsors/lucidrains) his work.
 
 ## Usage
 ```python
