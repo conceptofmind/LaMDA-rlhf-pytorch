@@ -6,20 +6,21 @@ I have been greatly inspired by the brilliant code of [Dr. Phil 'Lucid' Wang](ht
 
 ## Usage
 ```python
-lamda = LaMDA(
+lamda_base = LaMDA(
     num_tokens = 20000,
-    dim = 4,
-    dim_head = 4,
-    depth = 2,
-    heads = 2
+    dim = 512,
+    dim_head = 64,
+    depth = 12,
+    heads = 8
 )
 
-lamda = AutoregressiveWrapper(lamda, max_seq_len = 2048)
+lamda = AutoregressiveWrapper(lamda_base, max_seq_len = 2048)
 
 tokens = torch.randint(0, 20000, (1, 2048)) # mock token data
+
 logits = lamda(tokens)
 
-print("Loss:", logits)
+print("Cross-entropy Loss:", logits)
 ```
 
 ## About LaMDA:
