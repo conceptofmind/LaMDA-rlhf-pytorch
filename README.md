@@ -154,3 +154,22 @@ print("Cross-entropy Loss:", logits)
   copyright = {arXiv.org perpetual, non-exclusive license}
 }
 ```
+```bibtex
+@misc{https://doi.org/10.48550/arxiv.2002.05202,
+  doi = {10.48550/ARXIV.2002.05202},
+  
+  url = {https://arxiv.org/abs/2002.05202},
+  
+  author = {Shazeer, Noam},
+  
+  keywords = {Machine Learning (cs.LG), Neural and Evolutionary Computing (cs.NE), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  
+  title = {GLU Variants Improve Transformer},
+  
+  publisher = {arXiv},
+  
+  year = {2020},
+  
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+```
