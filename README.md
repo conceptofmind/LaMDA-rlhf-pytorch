@@ -36,12 +36,12 @@ print("Loss:", logits)
 - [ ] Use [The Pile](https://github.com/EleutherAI/the-pile) from Eleuther AI 
 - [ ] Implement Sentencepiece tokenizer
 - [ ] Add better documentation
-- [ ] Add logging with Weights And Biases
-- [ ] Add [DeepSpeed](https://www.deepspeed.ai/) for scaling model
+- [ ] Add logging with [Weights And Biases](https://wandb.ai/site)
+- [ ] Add [DeepSpeed](https://www.deepspeed.ai/) for scaling the model
 - [ ] Add finetuning script
 - [ ] Add pip installer with PyPI
 - [ ] Implement a JAX / Flax version as well
-- [ ] Add inference only if someone wants to actually train a LaMDA model
+- [ ] Add inference only if someone wants to open-source LaMDA model weights
 
 ## Citations
 ```bibtex
