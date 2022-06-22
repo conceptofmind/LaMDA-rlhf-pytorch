@@ -1,3 +1,5 @@
+<img src="./lamda.png" width="600px"></img>
+
 ## LaMDA-pytorch
 Open-source implementation of Google's [LaMDA research paper](https://arxiv.org/abs/2201.08239) in PyTorch. The totally not sentient AI. This repository will cover the 2B parameter implementation of the model as that is likely what most can afford to train. You can review Google's latest blog post from 2022 which details LaMDA [here](https://ai.googleblog.com/2022/01/lamda-towards-safe-grounded-and-high.html). You can also view their previous blog post from 2021 on the model [here](https://blog.google/technology/ai/lamda/).
 
