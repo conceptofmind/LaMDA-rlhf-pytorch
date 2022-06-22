@@ -135,3 +135,22 @@ print("Cross-entropy Loss:", logits)
   copyright = {arXiv.org perpetual, non-exclusive license}
 }
 ```
+```bibtex
+@misc{https://doi.org/10.48550/arxiv.1910.10683,
+  doi = {10.48550/ARXIV.1910.10683},
+  
+  url = {https://arxiv.org/abs/1910.10683},
+  
+  author = {Raffel, Colin and Shazeer, Noam and Roberts, Adam and Lee, Katherine and Narang, Sharan and Matena, Michael and Zhou, Yanqi and Li, Wei and Liu, Peter J.},
+  
+  keywords = {Machine Learning (cs.LG), Computation and Language (cs.CL), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  
+  title = {Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer},
+  
+  publisher = {arXiv},
+  
+  year = {2019},
+  
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+```
