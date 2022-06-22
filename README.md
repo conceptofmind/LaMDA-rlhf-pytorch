@@ -1,8 +1,8 @@
 ## LaMDA-pytorch
-Open-source implementation of Google's [LaMDA research paper](https://arxiv.org/abs/2201.08239) in PyTorch. The totally not sentient AI. This repository will cover the 2B paramater implementation of the model.
+Open-source implementation of Google's [LaMDA research paper](https://arxiv.org/abs/2201.08239) in PyTorch. The totally not sentient AI. This repository will cover the 2B paramater implementation of the model as that is likely what most can afford to train. 
 
-## In collaboration with:
-- [Dr. Phil 'Lucid' Wang](https://github.com/lucidrains)
+## Acknowledgement:
+I have been greatly inspired by the brilliant code of [Dr. Phil 'Lucid' Wang](https://github.com/lucidrains). Please check out his open-source implementations of multiple different transformer architectures and support his work.
 
 ## Usage
 ```python
@@ -23,10 +23,10 @@ print("Loss:", logits)
 ```
 
 ## Notes about LaMDA:
-- T5 Relative Positional Bias
-- Gated GELU Activation
-- GPT-like Decoder Only
-- Autoregressive 
+- T5 Relative Positional Bias in Attention
+- Gated GELU Activation in the Feed forward layer
+- GPT-like Decoder Only architecture
+- Autoregressive with Top-k sampling
 - Sentencepiece Byte-pair encoded tokenizer
 
 ## TODO:
@@ -113,5 +113,24 @@ print("Loss:", logits)
   timestamp = {Fri, 22 Apr 2022 16:06:31 +0200},
   biburl    = {https://dblp.org/rec/journals/corr/abs-2201-08239.bib},
   bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+```
+```bibtex
+@misc{https://doi.org/10.48550/arxiv.1706.03762,
+  doi = {10.48550/ARXIV.1706.03762},
+  
+  url = {https://arxiv.org/abs/1706.03762},
+  
+  author = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and Kaiser, Lukasz and Polosukhin, Illia},
+  
+  keywords = {Computation and Language (cs.CL), Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  
+  title = {Attention Is All You Need},
+  
+  publisher = {arXiv},
+  
+  year = {2017},
+  
+  copyright = {arXiv.org perpetual, non-exclusive license}
 }
 ```
