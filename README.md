@@ -4,6 +4,24 @@ Open-source implementation of Google's [LaMDA research paper](https://arxiv.org/
 ## In collaboration with:
 - [Dr. Phil 'Lucid' Wang](https://github.com/lucidrains)
 
+## Usage
+```python
+lamda = LaMDA(
+    num_tokens = 20000,
+    dim = 4,
+    dim_head = 4,
+    depth = 2,
+    heads = 2
+)
+
+lamda = AutoregressiveWrapper(lamda, max_seq_len = 2048)
+
+tokens = torch.randint(0, 20000, (1, 2048)) # mock token data
+logits = lamda(tokens)
+
+print("Loss:", logits)
+```
+
 ## Notes about LaMDA:
 - T5 Relative Positional Bias
 - Gated GELU Activation
@@ -12,7 +30,7 @@ Open-source implementation of Google's [LaMDA research paper](https://arxiv.org/
 - Sentencepiece Byte-pair encoded tokenizer
 
 ## TODO:
-- [ ] Finish building model architecture
+- [x] Finish building model architecture
 - [ ] Add pre-training script
 - [ ] Integrate Huggingface datasets
 - [ ] Use [The Pile](https://github.com/EleutherAI/the-pile) from Eleuther AI 
