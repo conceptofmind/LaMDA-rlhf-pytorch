@@ -34,7 +34,7 @@ print("Cross-entropy Loss:", logits)
 - [x] Finish building model architecture
 - [ ] Add pre-training script
 - [ ] Integrate Huggingface datasets
-- [ ] Use [The Pile](https://github.com/EleutherAI/the-pile) from Eleuther AI 
+- [ ] Use [The Pile](https://github.com/EleutherAI/the-pile) from [Eleuther AI](https://github.com/EleutherAI). 
 - [ ] Implement Sentencepiece tokenizer
 - [ ] Add better documentation
 - [ ] Add logging with [Weights And Biases](https://wandb.ai/site)
