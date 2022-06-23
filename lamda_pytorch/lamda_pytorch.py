@@ -255,8 +255,8 @@ if __name__ == "__main__":
         num_tokens = 20000,
         dim = 512,
         dim_head = 64,
-        depth = 12,
-        heads = 8
+        depth = 10,
+        heads = 40
     )
 
     lamda = AutoregressiveWrapper(lamda_base, max_seq_len = 2048)
