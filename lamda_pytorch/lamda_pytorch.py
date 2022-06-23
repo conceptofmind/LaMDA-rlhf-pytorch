@@ -143,12 +143,12 @@ class Attention(nn.Module):
         q = q * self.scale
 
         sim = einsum('b h i d, b j d -> b h i j', q, k)
+        i, j = sim.shape[-2:]
 
         # T5 Relative Positional Bias
         sim = self.rel_pos_bias(sim)
 
         # Causal Mask
-        i, j = sim.shape[-2:]
         causal_mask = torch.ones((i, j), dtype = torch.bool, device = device).triu(j - i + 1)
         sim = sim.masked_fill(causal_mask, -torch.finfo(sim.dtype).max)
 
