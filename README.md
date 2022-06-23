@@ -6,7 +6,7 @@ Open-source implementation of Google's [LaMDA research paper](https://arxiv.org/
 ## Acknowledgement:
 I have been greatly inspired by the brilliant code of [Dr. Phil 'Lucid' Wang](https://github.com/lucidrains). Please check out his [open-source implementations](https://github.com/lucidrains) of multiple different transformer architectures and [support](https://github.com/sponsors/lucidrains) his work.
 
-## Usage
+## Usage - Pre-training
 ```python
 lamda_base = LaMDA(
     num_tokens = 20000,
@@ -45,6 +45,9 @@ print("Cross-entropy Loss:", logits)
 - [ ] Add pip installer with PyPI
 - [ ] Implement a JAX / Flax version as well
 - [ ] Add inference only if someone wants to open-source LaMDA model weights
+
+## Author
+- Enrico Shippole
 
 ## Citations
 ```bibtex
