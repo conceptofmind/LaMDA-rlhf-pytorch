@@ -145,7 +145,7 @@ class Attention(nn.Module):
         sim = einsum('b h i d, b j d -> b h i j', q, k)
 
         # T5 Relative Positional Bias
-        sim = self.rel_pos_bias(sim) + sim
+        sim = self.rel_pos_bias(sim)
 
         # Causal Mask
         i, j = sim.shape[-2:]
