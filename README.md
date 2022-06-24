@@ -221,3 +221,19 @@ print("Cross-entropy Loss:", logits)
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ```
+```bibtex
+@inproceedings{sennrich-etal-2016-neural,
+    title = "Neural Machine Translation of Rare Words with Subword Units",
+    author = "Sennrich, Rico  and
+      Haddow, Barry  and
+      Birch, Alexandra",
+    booktitle = "Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = aug,
+    year = "2016",
+    address = "Berlin, Germany",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/P16-1162",
+    doi = "10.18653/v1/P16-1162",
+    pages = "1715--1725",
+}
+```
