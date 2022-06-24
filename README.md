@@ -16,9 +16,9 @@ lamda_base = LaMDA(
     heads = 8
 )
 
-lamda = AutoregressiveWrapper(lamda_base, max_seq_len = 2048)
+lamda = AutoregressiveWrapper(lamda_base, max_seq_len = 512)
 
-tokens = torch.randint(0, 20000, (1, 2048)) # mock token data
+tokens = torch.randint(0, 20000, (1, 512)) # mock token data
 
 logits = lamda(tokens)
 
