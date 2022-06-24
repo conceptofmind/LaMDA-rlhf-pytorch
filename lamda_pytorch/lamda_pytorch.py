@@ -201,7 +201,7 @@ class LaMDA(nn.Module):
 # autoregressive wrapper
 
 class AutoregressiveWrapper(nn.Module):
-    def __init__(self, net, max_seq_len = 2048, pad_value = 0):
+    def __init__(self, net, max_seq_len = 512, pad_value = 0):
         super().__init__()        
         self.pad_value = pad_value
         self.net = net
