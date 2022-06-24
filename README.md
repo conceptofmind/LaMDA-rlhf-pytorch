@@ -35,7 +35,7 @@ print("Cross-entropy Loss:", logits)
 ## TODO:
 - [x] Finish building model architecture
 - [ ] Add pre-training script
-- [x] Integrate Huggingface datasets
+- [x] Integrate [Huggingface datasets](https://huggingface.co/docs/datasets/index)
 - [ ] Use [The Pile](https://github.com/EleutherAI/the-pile) from [Eleuther AI](https://github.com/EleutherAI). 
 - [ ] Implement Sentencepiece or GPT-2 tokenizer
 - [ ] Add detailed documentation
