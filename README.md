@@ -33,11 +33,12 @@ print("Cross-entropy Loss:", logits)
 - Sentencepiece Byte-pair encoded tokenizer
 
 ## TODO:
-- [x] Finish building model architecture
+- [x] Finish building pre-training model architecture
 - [ ] Add pre-training script
 - [x] Integrate [Huggingface datasets](https://huggingface.co/docs/datasets/index)
 - [ ] Use [The Pile](https://github.com/EleutherAI/the-pile) from [Eleuther AI](https://github.com/EleutherAI). 
-- [ ] Implement Sentencepiece or GPT-2 tokenizer
+- [ ] Implement GPT-2 tokenizer
+- [ ] Add Sentencepiece tokenizer training script and integration
 - [ ] Add detailed documentation
 - [ ] Add logging with [Weights And Biases](https://wandb.ai/site)
 - [ ] Add [DeepSpeed](https://www.deepspeed.ai/) for scaling the model
