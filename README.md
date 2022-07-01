@@ -6,6 +6,9 @@ Open-source implementation of Google's [LaMDA research paper](https://arxiv.org/
 ## Acknowledgement:
 I have been greatly inspired by the brilliant code of [Dr. Phil 'Lucid' Wang](https://github.com/lucidrains). Please check out his [open-source implementations](https://github.com/lucidrains) of multiple different transformer architectures and [support](https://github.com/sponsors/lucidrains) his work.
 
+## Developer Updates
+Developer updates will be here for now: https://twitter.com/EnricoShippole
+
 ## Usage - Pre-training
 ```python
 lamda_base = LaMDA(
@@ -34,14 +37,14 @@ print("Cross-entropy Loss:", logits)
 
 ## TODO:
 - [x] Finish building pre-training model architecture
-- [ ] Add pre-training script
+- [x] Add pre-training script
 - [x] Integrate [Huggingface datasets](https://huggingface.co/docs/datasets/index)
 - [ ] Use [The Pile](https://github.com/EleutherAI/the-pile) from [Eleuther AI](https://github.com/EleutherAI). 
 - [ ] Implement GPT-2 tokenizer
 - [ ] Add Sentencepiece tokenizer training script and integration
 - [ ] Add detailed documentation
-- [ ] Add logging with [Weights And Biases](https://wandb.ai/site)
-- [ ] Add [DeepSpeed](https://www.deepspeed.ai/) for scaling the model
+- [x] Add logging with [Weights And Biases](https://wandb.ai/site)
+- [ ] Add scaling
 - [ ] Add finetuning script
 - [ ] Add pip installer with PyPI
 - [ ] Implement a JAX / Flax version as well
