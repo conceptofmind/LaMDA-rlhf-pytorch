@@ -2,6 +2,7 @@ import torch
 from torch import nn
 
 import colossalai
+import wandb
 
 from config.config import CFG
 
@@ -34,7 +35,10 @@ def LaMDA_Trainer(cfg: CFG):
 
     # optimizer function
 
-    optimizer = torch.optim.Adam(model.parameters(), lr = cfg.lr)
+    optimizer = torch.optim.Adam(
+        model.parameters(), 
+        lr = cfg.lr
+    )
 
     # initialze model, optimizer, criterion, and data loaders
 
@@ -45,29 +49,42 @@ def LaMDA_Trainer(cfg: CFG):
         train_dataloader,
         test_dataloader
     )
+    if cfg.use_wanb == True:
 
-    engine.train()
-    for step, batch in enumerate(train_dataloader):
-        inputs, labels = batch['inputs'].cuda(), batch['labels'].cuda()
-        
-        engine.zero_grad()
-        outputs = engine(inputs)
+        # initialize Weights and Biases Logging
+        wandb.init(project = cfg.project_name)
 
-        train_loss = engine.loss_fn(outputs, labels)
+        engine.train()
+        for step, batch in enumerate(train_dataloader):
 
-        engine.backward(train_loss)
-        engine.step()
-
-        engine.eval()
-        for step, batch in enumerate(test_dataloader):
             inputs, labels = batch['inputs'].cuda(), batch['labels'].cuda()
-
-            with torch.no_grad():
-                outputs = engine(inputs)
-                test_loss = engine.loss_fn(outputs, labels)
             
-            engine.backward(test_loss)
+            engine.zero_grad()
+            outputs = engine(inputs)
+
+            train_loss = engine.loss_fn(outputs, labels)
+            wandb.log({"train_loss": train_loss})
+
+            engine.backward(train_loss)
             engine.step()
+            wandb.log({"step": step})
+            
+            engine.eval()
+            for step, batch in enumerate(test_dataloader):
+                inputs, labels = batch['inputs'].cuda(), batch['labels'].cuda()
+
+                with torch.no_grad():
+                    outputs = engine(inputs)
+                    test_loss = engine.loss_fn(outputs, labels)
+                    wandb.log({"test_loss": test_loss})
+                
+                engine.backward(test_loss)
+                engine.step()
+
+        wandb.alert(
+            title = 'Training Complete',
+            text = "Training complete."
+        )
 
 if __name__ == "__main__":
 
