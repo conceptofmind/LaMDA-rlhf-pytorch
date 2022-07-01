@@ -2,15 +2,20 @@ import torch
 from torch import nn
 
 import colossalai
+from colossalai.logging import disable_existing_loggers
+
 import wandb
 
-from config.config import CFG
+from lamda_pytorch.config.config import CFG
 
 from dataloader.stream_dataloader import stream_dataloaders
 
 from lamda_pytorch.lamda_pytorch import lamda_model
 
 def LaMDA_Trainer(cfg: CFG):
+    assert torch.cuda.is_available()
+    disable_existing_loggers()
+
     parser = colossalai.get_default_parser()
 
     parser.add_argument(
@@ -21,13 +26,16 @@ def LaMDA_Trainer(cfg: CFG):
 
     args = parser.parse_args()
 
-    colossalai.launch_from_torch(config='./config/colossal_config.py')
+    colossalai.launch_from_torch(
+        config='.lamda_pytorch/config/colossal_config.py', 
+        seed = cfg.seed
+    )
 
     # LaMDA model
     model = lamda_model()
 
     # setup dataloaders
-    if cfg.use_huggingface:
+    if cfg.use_huggingface == True:
         train_dataloader, test_dataloader = stream_dataloaders(cfg)
 
     # loss function
