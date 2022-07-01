@@ -13,22 +13,22 @@ class CFG:
     )
 
     dim: int = field(
-        default = 1024,
+        default = 512,
         metadata = {'help': 'dimension of the embedding'}
     )
 
     depth: int = field(
-        default = 6,
+        default = 12,
         metadata = {'help': 'depth of the transformer'}
     )
 
     heads: int = field(
-        default = 16,
+        default = 9,
         metadata = {'help': 'number of heads in the transformer'}
     )
 
     dim_head: int = field(
-        default = 512,
+        default = 64,
         metadata = {'help': 'dimension of the head'}
     )
 
