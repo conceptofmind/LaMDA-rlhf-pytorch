@@ -2,11 +2,11 @@ import copy
 from itertools import chain
 from datasets import load_dataset
 from torch.utils.data import DataLoader
-from dataloader_config import DataLoaderArguments
+from lamda_pytorch.config import CFG
 from transformers import AutoTokenizer, default_data_collator
 from torch.utils.data.datapipes.iter.combinatorics import ShufflerIterDataPipe
 
-def stream_dataloaders(args: DataLoaderArguments, tokenizer: AutoTokenizer):
+def stream_dataloaders(args: CFG, tokenizer: AutoTokenizer):
     """
     Build streaming dataloaders for the PaLM model.
     Useful for low RAM and storage environments.
@@ -103,7 +103,7 @@ def stream_dataloaders(args: DataLoaderArguments, tokenizer: AutoTokenizer):
 if __name__ == '__main__':
 
     # Get Dataloader Configuration Arguments
-    data_loader_args = DataLoaderArguments
+    data_loader_args = CFG()
 
     # Get Tokenizer Configuration Arguments
     tokenizer_args = ''
