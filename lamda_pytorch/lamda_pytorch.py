@@ -6,23 +6,9 @@ import math
 
 from einops import rearrange
 
-# helpers
+from utils.utils import log, top_k
 
-def exists(val):
-    return val is not None
-
-def default(value, default):
-    return value if exists(value) else default
-
-def log(t, eps=1e-9):
-    return torch.log(t + eps)
-
-def top_k(logits, thres = 0.9):
-    k = int((1 - thres) * logits.shape[-1])
-    val, ind = torch.topk(logits, k)
-    probs = torch.full_like(logits, float('-inf'))
-    probs.scatter_(1, ind, val)
-    return probs
+from config.config import CFG
 
 # residual wrapper
 
@@ -249,15 +235,19 @@ class AutoregressiveWrapper(nn.Module):
         loss = F.cross_entropy(rearrange(out, "b c n -> b n c"), x_labels)
         return loss
 
+def lamda_model():
+    model = LaMDA(
+        num_tokens = CFG.num_tokens,
+        dim = CFG.dim,
+        depth = CFG.depth,
+        dim_head = CFG.dim_head,
+        heads = CFG.heads
+    )
+    return model
+
 if __name__ == "__main__":
 
-    lamda_base = LaMDA(
-        num_tokens = 20000,
-        dim = 512,
-        dim_head = 64,
-        depth = 10,
-        heads = 40
-    )
+    lamda_base = lamda_model()
 
     lamda = AutoregressiveWrapper(lamda_base, max_seq_len = 2048)
 
