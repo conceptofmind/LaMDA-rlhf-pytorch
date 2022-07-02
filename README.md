@@ -28,6 +28,10 @@ logits = lamda(tokens)
 print("Cross-entropy Loss:", logits)
 ```
 
+## Notes on training at scale:
+- There may be issues with NaN for fp16 training.
+- Pipeline parallelism should be used with ZeRO 1, not ZeRO 2.
+
 ## About LaMDA:
 - T5 Relative Positional Bias in Attention
 - Gated GELU Activation in the Feed forward layer
@@ -39,7 +43,8 @@ print("Cross-entropy Loss:", logits)
 - [x] Finish building pre-training model architecture
 - [x] Add pre-training script
 - [x] Integrate [Huggingface datasets](https://huggingface.co/docs/datasets/index)
-- [ ] Use [The Pile](https://github.com/EleutherAI/the-pile) from [Eleuther AI](https://github.com/EleutherAI). 
+- [ ] Use [The Pile](https://github.com/EleutherAI/the-pile) from [Eleuther AI](https://github.com/EleutherAI).
+- [ ] Build the [GODEL]() dataset and upload to HuggingFace datasets
 - [ ] Implement GPT-2 tokenizer
 - [ ] Add Sentencepiece tokenizer training script and integration
 - [ ] Add detailed documentation

@@ -57,7 +57,7 @@ def LaMDA_Trainer(cfg: CFG):
         train_dataloader,
         test_dataloader
     )
-    if cfg.use_wanb == True:
+    if cfg.use_wandb == True:
 
         # initialize Weights and Biases Logging
         wandb.init(project = cfg.project_name)
