@@ -6,11 +6,15 @@ from einops import rearrange
 
 # CrossEntropyLoss
 
-# def forward(self, x, **kwargs):
-#     x_inp, x_labels = x[:, :-1], x[:, 1:]
-#     out = self.net(x_inp, **kwargs)
-#     loss = F.cross_entropy(rearrange(out, "b c n -> b n c"), x_labels)
-#     return loss
+class LaMDA_Loss(nn.Module):
+    def __init__(self):
+        super(LaMDA_Loss, self).__init__()
+
+    def forward(self, x_inp, x_labels, **kwargs):
+        x_inp, x_labels = x_inp[:, :-1], x_labels[:, 1:]
+        out = self.net(x_inp, **kwargs)
+        loss = F.cross_entropy(rearrange(out, "b c n -> b n c"), x_labels)
+        return loss
 
 # autoregressive wrapper
 

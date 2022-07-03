@@ -11,6 +11,7 @@ from lamda_pytorch.config.config import CFG
 from dataloader.stream_dataloader import stream_dataloaders
 
 from lamda_pytorch.lamda_pytorch import lamda_model
+from lamda_pytorch.utils.utils import LaMDA_Loss, AutoregressiveWrapper
 
 def LaMDA_Trainer(cfg: CFG):
     assert torch.cuda.is_available()
@@ -33,13 +34,14 @@ def LaMDA_Trainer(cfg: CFG):
 
     # LaMDA model
     model = lamda_model()
+    model = AutoregressiveWrapper(model)
 
     # setup dataloaders
     if cfg.use_huggingface == True:
         train_dataloader, test_dataloader = stream_dataloaders(cfg)
 
     # loss function
-    loss_fn = nn.CrossEntropyLoss()
+    loss_fn = LaMDA_Loss()
 
     # optimizer function
 
@@ -57,6 +59,7 @@ def LaMDA_Trainer(cfg: CFG):
         train_dataloader,
         test_dataloader
     )
+
     if cfg.use_wandb == True:
 
         # initialize Weights and Biases Logging
@@ -93,6 +96,10 @@ def LaMDA_Trainer(cfg: CFG):
             title = 'Training Complete',
             text = "Training complete."
         )
+
+    else:
+        pass
+
 
 if __name__ == "__main__":
 
