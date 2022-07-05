@@ -45,7 +45,7 @@ print(logits)
 - [x] Finish building pre-training model architecture
 - [x] Add pre-training script
 - [x] Integrate [Huggingface datasets](https://huggingface.co/docs/datasets/index)
-- [ ] Use [The Pile](https://github.com/EleutherAI/the-pile) from [Eleuther AI](https://github.com/EleutherAI).
+- [x] Use [The Pile](https://github.com/EleutherAI/the-pile) from [Eleuther AI](https://github.com/EleutherAI).
 - [ ] Build the [GODEL]() dataset and upload to HuggingFace datasets
 - [ ] Implement GPT-2 tokenizer
 - [ ] Add Sentencepiece tokenizer training script and integration
