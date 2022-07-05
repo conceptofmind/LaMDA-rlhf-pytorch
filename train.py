@@ -8,7 +8,7 @@ import wandb
 
 from lamda_pytorch.config.config import CFG
 
-from dataloader.stream_dataloader import stream_dataloaders
+from lamda_pytorch.stream_dataloader import stream_dataloaders
 
 from lamda_pytorch.lamda_pytorch import lamda_model
 from lamda_pytorch.utils.utils import LaMDA_Loss, AutoregressiveWrapper
