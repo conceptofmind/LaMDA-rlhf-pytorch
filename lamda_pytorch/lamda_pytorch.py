@@ -6,9 +6,9 @@ import math
 
 from einops import rearrange
 
-from config.config import CFG
+from lamda_pytorch.config.config import CFG
 
-from utils.utils import AutoregressiveWrapper
+from lamda_pytorch.utils.utils import AutoregressiveWrapper
 
 # residual wrapper
 

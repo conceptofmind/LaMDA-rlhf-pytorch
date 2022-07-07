@@ -2,7 +2,7 @@ import copy
 from itertools import chain
 from datasets import load_dataset
 from torch.utils.data import DataLoader
-from config.config import CFG
+from lamda_pytorch.config.config import CFG
 from transformers import AutoTokenizer, default_data_collator
 from torch.utils.data.datapipes.iter.combinatorics import ShufflerIterDataPipe
 

@@ -32,7 +32,7 @@ print(logits)
 
 ## Notes on training at scale:
 - There may be issues with NaN for fp16 training.
-- Pipeline parallelism should be used with ZeRO 1, not ZeRO 2.
+- Pipeline parallelism should be used with ZeRO 1, not ZeRO 2. https://github.com/microsoft/DeepSpeed/discussions/1911
 
 ## About LaMDA:
 - T5 Relative Positional Bias in Attention
