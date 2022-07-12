@@ -2,7 +2,7 @@ import copy
 from itertools import chain
 from datasets import load_dataset
 from torch.utils.data import DataLoader
-from lamda_pytorch.config import CFG
+from lamda_pytorch.config.config import CFG
 from transformers import AutoTokenizer, default_data_collator
 from torch.utils.data.datapipes.iter.combinatorics import ShufflerIterDataPipe
 
@@ -106,7 +106,7 @@ if __name__ == '__main__':
     data_loader_args = CFG()
 
     # Get Tokenizer Configuration Arguments
-    tokenizer_args = ''
+    tokenizer_args = 'gpt2'
 
     # Load the pretrained tokenizer of your choosing
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_args)

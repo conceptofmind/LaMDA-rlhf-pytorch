@@ -43,32 +43,32 @@ class CFG:
     )
 
     train_dataset_name: Optional[str] = field(
-        default="", 
+        default="the_pile", 
         metadata={"help": "Path to Hugging Face training dataset."}
     )
 
     eval_dataset_name: Optional[str] = field(
-        default="", 
+        default="the_pile", 
         metadata={"help": "Path to Hugging Face validation dataset."}
     )
 
     choose_train_split: Optional[str] = field(
-        default="", 
+        default="train", 
         metadata={"help": "Choose Hugging Face training dataset split."}
     )
 
     choose_eval_split: Optional[str] = field(
-        default="", 
+        default="validation", 
         metadata={"help": "Choose Hugging Face validation dataset split."}
     )
 
     train_columns: ClassVar[list[str]] = field(
-        default = [], 
+        default = ['meta'], 
         metadata={"help": "Train dataset columns to remove."}
     )
 
     eval_columns: ClassVar[list[str]] = field(
-        default = [], 
+        default = ['meta'], 
         metadata={"help": "Validation dataset columns to remove."}
     )
 
@@ -93,7 +93,7 @@ class CFG:
     )
 
     select_input_string: Optional[str] = field(
-        default="content", 
+        default="text", 
         metadata={"help": "Select the key to used as the input string column."}
     )
 
