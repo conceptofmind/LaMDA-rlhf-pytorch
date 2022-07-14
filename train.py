@@ -1,11 +1,16 @@
+from asyncio.log import logger
 import torch
 from torch import nn
 
 import colossalai
+from colossalai.trainer import Trainer, hooks
+from colossalai.utils import MultiTimer
+from colossalai.nn.metric import Accuracy
 from colossalai.logging import disable_existing_loggers
 
 import wandb
 
+#from lamda_pytorch.config.config import CFG
 from lamda_pytorch.config.config import CFG
 
 from lamda_pytorch.stream_dataloader import stream_dataloaders
@@ -27,10 +32,13 @@ def LaMDA_Trainer(cfg: CFG):
 
     args = parser.parse_args()
 
-    colossalai.launch_from_torch(
-        config='.lamda_pytorch/config/colossal_config.py', 
-        seed = cfg.seed
-    )
+    if args.use_zero:
+        pass
+    else:
+        colossalai.launch_from_torch(
+            config='.lamda_pytorch/config/colossal_config.py', 
+            seed = cfg.seed
+        )
 
     # LaMDA model
     model = lamda_model()
@@ -98,7 +106,31 @@ def LaMDA_Trainer(cfg: CFG):
         )
 
     else:
-        pass
+
+        # Time session with ColossalAI
+        timer = MultiTimer()
+
+        # trainer
+        trainer = Trainer(
+            engine = engine,
+            timer =  timer,
+            logger = logger
+        )
+
+        hook_list = [
+            hooks.LossHook(),
+            hooks.AccuracyHook(accuracy_func = Accuracy()),
+            hooks.LogMetricByEpochHook(logger)
+        ]
+
+        trainer.fit(
+            train_dataloader = train_dataloader,
+            epochs = args.epochs,
+            test_dataloader = test_dataloader,
+            hooks = hook_list,
+            display_progress = args.display_progress,
+            test_interval = args.test_interval
+        )
 
 
 if __name__ == "__main__":

@@ -198,9 +198,15 @@ if __name__ == "__main__":
 
     lamda_base = lamda_model()
 
-    lamda = AutoregressiveWrapper(lamda_base, max_seq_len = 2048)
+    #lamda = AutoregressiveWrapper(lamda_base, max_seq_len = 2048)
 
     tokens = torch.randint(0, 20000, (1, 2048)) # mock token data
 
-    logits = lamda(tokens)
-    print(logits)
+    logits = lamda_base(tokens)
+    print(logits.shape)
+
+    n_params_torch = sum(
+        p.numel() for p in lamda_base.parameters() if p.requires_grad
+    )
+
+    print(f"Number of parameters in torch model: {n_params_torch}")
