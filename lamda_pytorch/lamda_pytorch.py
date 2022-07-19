@@ -8,8 +8,6 @@ from einops import rearrange
 
 from lamda_pytorch.config.config import CFG
 
-from lamda_pytorch.utils.utils import AutoregressiveWrapper
-
 # residual wrapper
 
 class Residual(nn.Module):

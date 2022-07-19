@@ -27,7 +27,7 @@ class CFG:
     """
 
     num_tokens: int = field(
-        default = 20000,
+        default = 50257,
         metadata = {'help': 'number of tokens'}
     )
 

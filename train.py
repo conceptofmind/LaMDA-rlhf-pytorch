@@ -3,7 +3,6 @@ import colossalai
 from colossalai.core import global_context as gpc
 from colossalai.trainer import Trainer, hooks
 from colossalai.utils import MultiTimer
-from colossalai.nn.metric import Accuracy
 from colossalai.logging import disable_existing_loggers, get_dist_logger
 
 import wandb

@@ -86,17 +86,16 @@ def build_dataloaders(args: CFG, tokenizer: AutoTokenizer):
     eval_with_torch = tokenized_eval_dataset.set_format(type = args.set_format)
 
     # Train dataset used for sampling.
-    sample_train_dataset = DistributedSampler(train_with_torch) if get_world_size() > 1 else None
-
+    #sample_train_dataset = DistributedSampler(train_with_torch) if get_world_size() > 1 else None
+    sample_train_dataset = train_with_torch
     # Validation dataset used for sampling.
-    sample_eval_dataset = DistributedSampler(eval_with_torch) if get_world_size() > 1 else None
-
+    #sample_eval_dataset = DistributedSampler(eval_with_torch) if get_world_size() > 1 else None
+    sample_eval_dataset = eval_with_torch
     # Create the train dataloader. If the length of a tokenized input sequence is less than 2048 drop it.
     train_dataloader = DataLoader(tokenized_train_dataset, shuffle = (sample_train_dataset is None), sampler = sample_train_dataset, drop_last = True, collate_fn = default_data_collator, batch_size = args.batch_size)
 
     # Create the validation dataloader. If the length of a tokenized input sequence is less than 2048 drop it.
     eval_dataloader = DataLoader(tokenized_eval_dataset, shuffle = (sample_eval_dataset is None), sampler = sample_eval_dataset, drop_last = True, collate_fn = default_data_collator, batch_size = args.batch_size)
-
 
     # Return the training and validation dataloaders to be used in the model
     print('Done building dataloaders')

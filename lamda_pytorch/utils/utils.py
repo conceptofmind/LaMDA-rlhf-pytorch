@@ -1,7 +1,6 @@
 import torch
 from torch import nn
 import torch.nn.functional as F
-
 from einops import rearrange
 
 # CrossEntropyLoss
@@ -10,10 +9,9 @@ class LaMDA_Loss(nn.Module):
     def __init__(self):
         super(LaMDA_Loss, self).__init__()
 
-    def forward(self, x_inp, x_labels, **kwargs):
+    def forward(self, x_inp, x_labels):
         x_inp, x_labels = x_inp[:, :-1], x_labels[:, 1:]
-        out = self.net(x_inp, **kwargs)
-        loss = F.cross_entropy(rearrange(out, "b c n -> b n c"), x_labels)
+        loss = F.cross_entropy(rearrange(x_inp, "b c n -> b n c"), x_labels)
         return loss
 
 # autoregressive wrapper
