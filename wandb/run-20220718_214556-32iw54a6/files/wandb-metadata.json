@@ -1,0 +1,24 @@
+{
+    "os": "Linux-5.4.0-122-generic-x86_64-with-glibc2.27",
+    "python": "3.9.12",
+    "heartbeatAt": "2022-07-19T01:45:59.030914",
+    "startedAt": "2022-07-19T01:45:56.262582",
+    "docker": null,
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "gpu_count": 1,
+    "cpu_count": 12,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/home/henry/palm_pytorch/LaMDA-pytorch/train.py",
+    "codePath": "train.py",
+    "git": {
+        "remote": "https://github.com/conceptofmind/LaMDA-pytorch.git",
+        "commit": "781c54a78409757fddc37b68d654f4a8c796d446"
+    },
+    "email": "enricoship@gmail.com",
+    "root": "/home/henry/palm_pytorch/LaMDA-pytorch",
+    "host": "henry-MS-7C75",
+    "username": "henry",
+    "executable": "/home/henry/anaconda3/envs/palm/bin/python"
+}

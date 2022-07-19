@@ -5,6 +5,24 @@ from dataclasses import dataclass, field
 class CFG:
 
     """
+    Configuration for ZeRO
+    """
+
+    use_zero: bool = field(
+        default = False,
+        metadata = {'help': 'whether to use zero'}
+    )
+
+    """
+    Configuration for optimizer
+    """
+
+    lr: float = field(
+        default = 0.001,
+        metadata = {'help': 'learning rate'}
+    )
+
+    """
     Configuration class for LaMDA model.
     """
 
@@ -58,7 +76,7 @@ class CFG:
     )
 
     choose_eval_split: Optional[str] = field(
-        default="validation", 
+        default="train", 
         metadata={"help": "Choose Hugging Face validation dataset split."}
     )
 
@@ -70,16 +88,6 @@ class CFG:
     eval_columns: ClassVar[list[str]] = field(
         default = ['meta'], 
         metadata={"help": "Validation dataset columns to remove."}
-    )
-
-    train_buffer: Optional[int] = field(
-        default=10000, 
-        metadata={"help": "Size of buffer used to shuffle streaming dataset."}
-    )
-
-    eval_buffer: Optional[int] = field(
-        default=1000, 
-        metadata={"help": "Size of buffer used to shuffle streaming dataset."}
     )
 
     seed: Optional[int] = field(

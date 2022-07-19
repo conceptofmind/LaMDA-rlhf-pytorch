@@ -1,12 +1,13 @@
 import copy
 from itertools import chain
 from datasets import load_dataset
-from torch.utils.data import DataLoader
-from config.config import CFG
+from torch.utils.data import DataLoader, DistributedSampler
+from torch.distributed import get_world_size
+from .config.config import CFG
 from transformers import AutoTokenizer, default_data_collator
-from torch.utils.data.datapipes.iter.combinatorics import ShufflerIterDataPipe
 
-def stream_dataloaders(args: CFG, tokenizer: AutoTokenizer):
+
+def build_dataloaders(args: CFG, tokenizer: AutoTokenizer):
     """
     Build streaming dataloaders for the PaLM model.
     Useful for low RAM and storage environments.
@@ -14,22 +15,22 @@ def stream_dataloaders(args: CFG, tokenizer: AutoTokenizer):
     """
 
     # Load training dataset
-    load_train_data = load_dataset(args.train_dataset_name, split = args.choose_train_split, streaming = True)
+    load_train_data = load_dataset(args.train_dataset_name, "enron_emails", split = args.choose_train_split)
 
     # Remove unused columns from the training dataset
     load_train_data = load_train_data.remove_columns(args.train_columns)
 
     # Load validation dataset
-    load_eval_data = load_dataset(args.eval_dataset_name, split = args.choose_eval_split, streaming = True)
+    load_eval_data = load_dataset(args.eval_dataset_name, "enron_emails", split = args.choose_eval_split)
 
     # Remove unused columns from the validation dataset
     load_eval_data = load_eval_data.remove_columns(args.eval_columns)
 
     # Shuffle the training input files. Set a buffer size to
-    shuffled_train_files = load_train_data.shuffle(seed = args.seed, buffer_size = args.train_buffer)
+    shuffled_train_files = load_train_data.shuffle(seed = args.seed)
 
     # Shuffle the validation input files. Set a buffer size to
-    shuffled_eval_files = load_eval_data.shuffle(seed = args.seed, buffer_size = args.eval_buffer)
+    shuffled_eval_files = load_eval_data.shuffle(seed = args.seed)
 
     """
     A sequence length of 2048 is used for the model. Input examples are concatenated
@@ -79,22 +80,23 @@ def stream_dataloaders(args: CFG, tokenizer: AutoTokenizer):
     tokenized_eval_dataset = shuffled_eval_files.map(tokenize, batched = True, remove_columns = [args.select_input_string])
 
     # Convert the format of the tokenized train dataset to PyTorch Tensors
-    train_with_torch = tokenized_train_dataset.with_format(args.set_format)
+    train_with_torch = tokenized_train_dataset.set_format(type = args.set_format)
 
     # Convert the format of the tokenized validation dataset to PyTorch Tensors
-    eval_with_torch = tokenized_eval_dataset.with_format(args.set_format)
+    eval_with_torch = tokenized_eval_dataset.set_format(type = args.set_format)
 
-    # Shuffles the tensor batches in the Iterable training dataset
-    shuffle_train_batches = ShufflerIterDataPipe(train_with_torch)
+    # Train dataset used for sampling.
+    sample_train_dataset = DistributedSampler(train_with_torch) if get_world_size() > 1 else None
 
-    # Shuffles the tensor batches in the Iterable validation dataset
-    shuffle_eval_batches = ShufflerIterDataPipe(eval_with_torch)
+    # Validation dataset used for sampling.
+    sample_eval_dataset = DistributedSampler(eval_with_torch) if get_world_size() > 1 else None
 
-    # Create the Iterable train dataloader. If the length of a tokenized input sequence is less than 2048 drop it.
-    train_dataloader = DataLoader(shuffle_train_batches, shuffle = True, drop_last = True, collate_fn = default_data_collator, batch_size = args.batch_size)
+    # Create the train dataloader. If the length of a tokenized input sequence is less than 2048 drop it.
+    train_dataloader = DataLoader(tokenized_train_dataset, shuffle = (sample_train_dataset is None), sampler = sample_train_dataset, drop_last = True, collate_fn = default_data_collator, batch_size = args.batch_size)
 
-    # Create the Iterable validation dataloader. If the length of a tokenized input sequence is less than 2048 drop it.
-    eval_dataloader = DataLoader(shuffle_eval_batches, shuffle = True, drop_last = True, collate_fn = default_data_collator, batch_size = args.batch_size)
+    # Create the validation dataloader. If the length of a tokenized input sequence is less than 2048 drop it.
+    eval_dataloader = DataLoader(tokenized_eval_dataset, shuffle = (sample_eval_dataset is None), sampler = sample_eval_dataset, drop_last = True, collate_fn = default_data_collator, batch_size = args.batch_size)
+
 
     # Return the training and validation dataloaders to be used in the model
     print('Done building dataloaders')
@@ -112,7 +114,7 @@ if __name__ == '__main__':
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_args)
 
     # Test Build Dataloaders
-    train_loader, eval_loader = stream_dataloaders(args = data_loader_args, tokenizer = tokenizer)
+    train_loader, eval_loader = build_dataloaders(args = data_loader_args, tokenizer = tokenizer)
 
     print(next(iter(train_loader))['input_ids'])
     print(next(iter(train_loader))['input_ids'].shape)

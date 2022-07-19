@@ -10,13 +10,14 @@ from colossalai.logging import disable_existing_loggers
 
 import wandb
 
-#from lamda_pytorch.config.config import CFG
 from lamda_pytorch.config.config import CFG
 
-from lamda_pytorch.stream_dataloader import stream_dataloaders
+from lamda_pytorch.build_dataloader import build_dataloaders
 
 from lamda_pytorch.lamda_pytorch import lamda_model
 from lamda_pytorch.utils.utils import LaMDA_Loss, AutoregressiveWrapper
+
+from transformers import AutoTokenizer
 
 def LaMDA_Trainer(cfg: CFG):
     assert torch.cuda.is_available()
@@ -32,11 +33,11 @@ def LaMDA_Trainer(cfg: CFG):
 
     args = parser.parse_args()
 
-    if args.use_zero:
+    if cfg.use_zero == True:
         pass
     else:
         colossalai.launch_from_torch(
-            config='.lamda_pytorch/config/colossal_config.py', 
+            config='./lamda_pytorch/config/colossal_config.py', 
             seed = cfg.seed
         )
 
@@ -46,7 +47,8 @@ def LaMDA_Trainer(cfg: CFG):
 
     # setup dataloaders
     if cfg.use_huggingface == True:
-        train_dataloader, test_dataloader = stream_dataloaders(cfg)
+        tokenizer = AutoTokenizer.from_pretrained("gpt2")
+        train_dataloader, test_dataloader = build_dataloaders(cfg, tokenizer)
 
     # loss function
     loss_fn = LaMDA_Loss()
@@ -131,7 +133,6 @@ def LaMDA_Trainer(cfg: CFG):
             display_progress = args.display_progress,
             test_interval = args.test_interval
         )
-
 
 if __name__ == "__main__":
 
