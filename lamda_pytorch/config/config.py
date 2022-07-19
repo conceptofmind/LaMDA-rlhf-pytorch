@@ -37,12 +37,12 @@ class CFG:
     )
 
     depth: int = field(
-        default = 12,
+        default = 6,
         metadata = {'help': 'depth of the transformer'}
     )
 
     heads: int = field(
-        default = 9,
+        default = 4,
         metadata = {'help': 'number of heads in the transformer'}
     )
 
@@ -96,7 +96,7 @@ class CFG:
     )
 
     tokenizer_seq_length: Optional[int] = field(
-        default=512, 
+        default=1024, 
         metadata={"help": "Sequence lengths used for tokenizing examples."}
     )
 

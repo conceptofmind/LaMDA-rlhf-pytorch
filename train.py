@@ -1,12 +1,10 @@
-from asyncio.log import logger
 import torch
-from torch import nn
-
 import colossalai
+from colossalai.core import global_context as gpc
 from colossalai.trainer import Trainer, hooks
 from colossalai.utils import MultiTimer
 from colossalai.nn.metric import Accuracy
-from colossalai.logging import disable_existing_loggers
+from colossalai.logging import disable_existing_loggers, get_dist_logger
 
 import wandb
 
@@ -41,6 +39,10 @@ def LaMDA_Trainer(cfg: CFG):
             seed = cfg.seed
         )
 
+    # Colossal logger
+    logger = get_dist_logger()
+    logger.info("Initialized environment", ranks=[0])
+
     # LaMDA model
     model = lamda_model()
     model = AutoregressiveWrapper(model)
@@ -48,7 +50,7 @@ def LaMDA_Trainer(cfg: CFG):
     # setup dataloaders
     if cfg.use_huggingface == True:
         tokenizer = AutoTokenizer.from_pretrained("gpt2")
-        train_dataloader, test_dataloader = build_dataloaders(cfg, tokenizer)
+        train_dataloader, eval_dataloader = build_dataloaders(cfg, tokenizer)
 
     # loss function
     loss_fn = LaMDA_Loss()
@@ -62,13 +64,19 @@ def LaMDA_Trainer(cfg: CFG):
 
     # initialze model, optimizer, criterion, and data loaders
 
-    engine, train_dataloader, test_dataloader, _ = colossalai.initialize(
+    engine, train_dataloader, _, _ = colossalai.initialize(
         model,
         optimizer,
         loss_fn,
-        train_dataloader,
-        test_dataloader
+        train_dataloader = train_dataloader
     )
+
+    def batch_data_process_func(batch_data):
+        data = batch_data["input_ids"]
+        labels = batch_data["labels"]
+        return data, labels
+
+    engine.schedule.batch_data_process_func = batch_data_process_func
 
     if cfg.use_wandb == True:
 
@@ -91,7 +99,7 @@ def LaMDA_Trainer(cfg: CFG):
             wandb.log({"step": step})
             
             engine.eval()
-            for step, batch in enumerate(test_dataloader):
+            for step, batch in enumerate(eval_dataloader):
                 inputs, labels = batch['inputs'].cuda(), batch['labels'].cuda()
 
                 with torch.no_grad():
@@ -121,17 +129,14 @@ def LaMDA_Trainer(cfg: CFG):
 
         hook_list = [
             hooks.LossHook(),
-            hooks.AccuracyHook(accuracy_func = Accuracy()),
             hooks.LogMetricByEpochHook(logger)
         ]
 
         trainer.fit(
             train_dataloader = train_dataloader,
-            epochs = args.epochs,
-            test_dataloader = test_dataloader,
+            epochs = gpc.config.EPOCHS,
             hooks = hook_list,
-            display_progress = args.display_progress,
-            test_interval = args.test_interval
+            display_progress = True
         )
 
 if __name__ == "__main__":
