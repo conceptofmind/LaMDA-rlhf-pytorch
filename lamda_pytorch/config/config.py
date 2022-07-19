@@ -32,7 +32,7 @@ class CFG:
     )
 
     dim: int = field(
-        default = 512,
+        default = 1024,
         metadata = {'help': 'dimension of the embedding'}
     )
 

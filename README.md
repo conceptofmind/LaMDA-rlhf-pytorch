@@ -47,11 +47,11 @@ print(logits)
 - [x] Integrate [Huggingface datasets](https://huggingface.co/docs/datasets/index)
 - [x] Use [The Pile](https://github.com/EleutherAI/the-pile) from [Eleuther AI](https://github.com/EleutherAI).
 - [ ] Build the [GODEL]() dataset and upload to HuggingFace datasets
-- [ ] Implement GPT-2 tokenizer
+- [x] Implement GPT-2 tokenizer
 - [ ] Add Sentencepiece tokenizer training script and integration
 - [ ] Add detailed documentation
 - [x] Add logging with [Weights And Biases](https://wandb.ai/site)
-- [ ] Add scaling with Colossal or DeepSpeed. Possibly offer FairScale.
+- [x] Add scaling with Colossal or DeepSpeed. Possibly offer FairScale.
 - [ ] Add finetuning script
 - [ ] Add pip installer with PyPI
 - [ ] Implement a JAX / Flax version as well
