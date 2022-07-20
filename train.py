@@ -57,9 +57,10 @@ def LaMDA_Trainer(cfg: CFG):
 
     # optimizer function
 
-    optimizer = torch.optim.Adam(
+    optimizer = torch.optim.AdamW(
         model.parameters(), 
-        lr = gpc.config.LEARNING_RATE
+        lr = gpc.config.LEARNING_RATE,
+        weight_decay=gpc.config.WEIGHT_DECAY
     )
 
     # initialze model, optimizer, criterion, and data loaders
@@ -128,6 +129,7 @@ def LaMDA_Trainer(cfg: CFG):
         )
 
         hook_list = [
+            hooks.LogMetricByStepHook(),
             hooks.LossHook(),
             hooks.LogMetricByEpochHook(logger)
         ]
