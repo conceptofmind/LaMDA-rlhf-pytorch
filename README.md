@@ -51,7 +51,7 @@ print(logits)
 - [ ] Add Sentencepiece tokenizer training script and integration
 - [ ] Add detailed documentation
 - [x] Add logging with [Weights And Biases](https://wandb.ai/site)
-- [x] Add scaling with Colossal or DeepSpeed. Possibly offer FairScale.
+- [x] Add scaling with ColossalAI.
 - [ ] Add finetuning script
 - [ ] Add pip installer with PyPI
 - [ ] Implement a JAX / Flax version as well

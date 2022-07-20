@@ -18,7 +18,7 @@ class CFG:
     """
 
     lr: float = field(
-        default = 0.001,
+        default = 0.0001,
         metadata = {'help': 'learning rate'}
     )
 
@@ -32,7 +32,7 @@ class CFG:
     )
 
     dim: int = field(
-        default = 1024,
+        default = 512,
         metadata = {'help': 'dimension of the embedding'}
     )
 
@@ -80,12 +80,12 @@ class CFG:
         metadata={"help": "Choose Hugging Face validation dataset split."}
     )
 
-    train_columns: ClassVar[list[str]] = field(
+    remove_train_columns: ClassVar[list[str]] = field(
         default = ['meta'], 
         metadata={"help": "Train dataset columns to remove."}
     )
 
-    eval_columns: ClassVar[list[str]] = field(
+    remove_eval_columns: ClassVar[list[str]] = field(
         default = ['meta'], 
         metadata={"help": "Validation dataset columns to remove."}
     )
@@ -95,8 +95,13 @@ class CFG:
         metadata={"help": "Random seed used for reproducibility."}
     )
 
+    tokenizer_name: Optional[str] = field(
+        default="gpt2",
+        metadata={"help": "Tokenizer name."}
+    )
+
     tokenizer_seq_length: Optional[int] = field(
-        default=1024, 
+        default=512, 
         metadata={"help": "Sequence lengths used for tokenizing examples."}
     )
 
@@ -104,14 +109,9 @@ class CFG:
         default="text", 
         metadata={"help": "Select the key to used as the input string column."}
     )
-
-    set_format: Optional[str] = field(
-        default="torch", 
-        metadata={"help": "Convert the format to PyTorch Tensors"}
-    )
     
     batch_size: Optional[int] = field(
-        default=4, 
+        default=16, 
         metadata={"help": "Batch size for training and validation."}
     )
 

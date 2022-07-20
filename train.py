@@ -1,4 +1,5 @@
 import torch
+
 import colossalai
 from colossalai.core import global_context as gpc
 from colossalai.trainer import Trainer, hooks
@@ -8,9 +9,7 @@ from colossalai.logging import disable_existing_loggers, get_dist_logger
 import wandb
 
 from lamda_pytorch.config.config import CFG
-
 from lamda_pytorch.build_dataloader import build_dataloaders
-
 from lamda_pytorch.lamda_pytorch import lamda_model
 from lamda_pytorch.utils.utils import LaMDA_Loss, AutoregressiveWrapper
 
@@ -38,6 +37,8 @@ def LaMDA_Trainer(cfg: CFG):
             seed = cfg.seed
         )
 
+    assert hasattr(gpc.config, "EPOCHS"), "Please provide NUM_EPOCHS in your configuration"
+
     # Colossal logger
     logger = get_dist_logger()
     logger.info("Initialized environment", ranks=[0])
@@ -48,7 +49,7 @@ def LaMDA_Trainer(cfg: CFG):
 
     # setup dataloaders
     if cfg.use_huggingface == True:
-        tokenizer = AutoTokenizer.from_pretrained("gpt2")
+        tokenizer = AutoTokenizer.from_pretrained(cfg.tokenizer_name)
         train_dataloader, eval_dataloader = build_dataloaders(cfg, tokenizer)
 
     # loss function
@@ -58,7 +59,7 @@ def LaMDA_Trainer(cfg: CFG):
 
     optimizer = torch.optim.Adam(
         model.parameters(), 
-        lr = cfg.lr
+        lr = gpc.config.LEARNING_RATE
     )
 
     # initialze model, optimizer, criterion, and data loaders
