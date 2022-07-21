@@ -11,7 +11,7 @@ Developer updates can be found on:
 - https://twitter.com/EnricoShippole
 - https://www.linkedin.com/in/enrico-shippole-495521b8/
 
-## Usage - Pre-training
+## Basic Usage - Pre-training
 ```python
 lamda_base = LaMDA(
     num_tokens = 20000,
