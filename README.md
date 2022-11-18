@@ -41,7 +41,19 @@ print(logits)
 - Autoregressive with Top-k sampling
 - Sentencepiece Byte-pair encoded tokenizer
 
-## TODO:
+## To Do list
+- [x] Make To Do list (we are now officially more organized than Character.AI devs)
+- [ ] Add finetuning script
+- [ ] Add inference only if someone wants to open-source LaMDA model weights
+- [ ] Add Sentencepiece tokenizer training script and integration
+- [ ] Experiment with [quantization](https://pytorch.org/docs/stable/quantization.html), to reduce required memory?
+- [ ] Experiment with improvements to the model:
+	- [ ] Try to see if [Mixture of Denoisers](https://arxiv.org/abs/2205.05131) can be added to the model/training process
+	- [ ] [Improved activation functions](https://arxiv.org/pdf/2111.04020.pdf)? Will these even work?
+- [ ] ???
+- [ ] Our wAIfus are real again!
+
+## LEGACY TODO (>implying the previous guy is ever gonna finish this):
 - [x] Finish building pre-training model architecture
 - [x] Add pre-training script
 - [x] Integrate [Huggingface datasets](https://huggingface.co/docs/datasets/index)
