@@ -1,4 +1,4 @@
-from typing import Optional, ClassVar
+from typing import Optional, ClassVar, List
 from dataclasses import dataclass, field
 
 @dataclass
@@ -80,12 +80,12 @@ class CFG:
         metadata={"help": "Choose Hugging Face validation dataset split."}
     )
 
-    remove_train_columns: ClassVar[list[str]] = field(
+    remove_train_columns: ClassVar[List[str]] = field(
         default = ['meta'], 
         metadata={"help": "Train dataset columns to remove."}
     )
 
-    remove_eval_columns: ClassVar[list[str]] = field(
+    remove_eval_columns: ClassVar[List[str]] = field(
         default = ['meta'], 
         metadata={"help": "Validation dataset columns to remove."}
     )
