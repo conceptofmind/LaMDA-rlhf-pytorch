@@ -1,3 +1,4 @@
 einops
 torch
 transformers
+wandb

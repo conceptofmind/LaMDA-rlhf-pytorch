@@ -1,10 +1,11 @@
-import torch
-from torch import nn, einsum
-import torch.nn.functional as F
-
 import math
 
+import torch
+import torch.nn.functional as F
+
 from einops import rearrange
+from torch import nn, einsum
+from torch.quantization import quantize_dynamic
 
 from lamda_pytorch.config.config import CFG
 
@@ -148,13 +149,21 @@ class Attention(nn.Module):
 # Transformer
 
 class Transformer(nn.Module):
-    def __init__(self, dim, depth, heads, dim_head, dropout = 0.):
+    def __init__(self, dim, depth, heads, dim_head, dropout = 0., quantized = False):
         super().__init__()
         self.layers = nn.ModuleList([])
+   
+        attn = Attention(dim = dim, heads = heads, dim_head = dim_head, dropout = dropout)
+        ffn = FeedForward(dim = dim, dropout = dropout)
+        #if quantized = True, apply dynamic quantization to Linears in both attention and FFN
+        if quantized:
+            attn = quantize_dynamic(attn, {nn.Linear}, dtype=torch.qint8)
+            ffn = quantize_dynamic(ffn, {nn.Linear}, dtype=torch.qint8)
+        
         for _ in range(depth):
             self.layers.append(nn.ModuleList([
-                Residual(PreNorm(dim, Attention(dim = dim, heads = heads, dim_head = dim_head, dropout = dropout))),
-                Residual(PreNorm(dim, FeedForward(dim = dim, dropout = dropout)))
+                Residual(PreNorm(dim, attn)),
+                Residual(PreNorm(dim, ffn))
             ]))
     def forward(self, x):
         for attn, ff in self.layers:
@@ -165,11 +174,13 @@ class Transformer(nn.Module):
 # LaMDA Model
 
 class LaMDA(nn.Module):
-    def __init__(self, *, num_tokens, dim, depth, dim_head, heads):
+    def __init__(self, *, num_tokens, dim, depth, dim_head, heads, quantized_transformer = False):
         super().__init__()
+        self.num_tokens = num_tokens
+        self.dim = dim
         self.token_emb = nn.Embedding(num_tokens, dim)
 
-        self.transformer = Transformer(dim, depth, dim_head, heads)
+        self.transformer = Transformer(dim, depth, dim_head, heads, quantized = quantized_transformer)
 
         self.to_logits = nn.Sequential(
             nn.LayerNorm(dim),
@@ -182,15 +193,21 @@ class LaMDA(nn.Module):
         logits = self.to_logits(x)
         return logits
 
-def lamda_model():
+def lamda_model(quantized_logits = False, quantized_transformer = False): #note: quantized logits does not automatically guarantee a quantized transformer, quantized lamda refers to quantizing the linear layer in LaMDA.to_logits and that only
     model = LaMDA(
         num_tokens = CFG.num_tokens,
         dim = CFG.dim,
         depth = CFG.depth,
         dim_head = CFG.dim_head,
-        heads = CFG.heads
+        heads = CFG.heads,
+        quantized_transformer = quantized_transformer
     )
-    return model
+    if quantized_logits:
+        quantized_model = quantize_dynamic(model, {nn.Linear}, dtype=torch.qint8)
+        del model #save on memory
+        return quantized_model
+    else: #technically this doesn't need an else statement but I feel it looks nicer like this
+        return model
 
 if __name__ == "__main__":
 
@@ -198,7 +215,7 @@ if __name__ == "__main__":
 
     #lamda = AutoregressiveWrapper(lamda_base, max_seq_len = 2048)
 
-    tokens = torch.randint(0, 20000, (1, 2048)) # mock token data
+    tokens = torch.randint(0, lamda_base.num_tokens, (1, lamda_base.dim)) # mock token data
 
     logits = lamda_base(tokens)
     print(logits.shape)
