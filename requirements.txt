@@ -3,3 +3,4 @@ einops
 torch
 transformers
 wandb
+zstandard
