@@ -60,22 +60,22 @@ class CFG:
         metadata = {'help': 'Whether to use huggingface datasets'}
     )
 
-    train_dataset_name: Optional[str] = field(
+    train_dataset_path: Optional[str] = field(
         default="the_pile", 
         metadata={"help": "Path to Hugging Face training dataset."}
     )
 
-    eval_dataset_name: Optional[str] = field(
+    eval_dataset_path: Optional[str] = field(
         default="the_pile", 
         metadata={"help": "Path to Hugging Face validation dataset."}
     )
     
-    train_data_dir: Optional[str] = field(
+    train_dataset_name: Optional[str] = field(
         default=None, 
         metadata={"help": "Path to Hugging Face training dataset directory."}
     )
 
-    eval_data_dir: Optional[str] = field(
+    eval_dataset_name: Optional[str] = field(
         default=None, 
         metadata={"help": "Path to Hugging Face validation dataset directory."}
     )

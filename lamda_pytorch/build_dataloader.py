@@ -13,13 +13,13 @@ def build_dataloaders(args: CFG, tokenizer: AutoTokenizer):
     """
 
     # Load training dataset
-    load_train_data = load_dataset(args.train_dataset_name, data_dir = args.train_data_dir, split = args.choose_train_split)
+    load_train_data = load_dataset(args.train_dataset_path, name = args.train_dataset_name, split = args.choose_train_split)
 
     # Remove unused columns from the training dataset
     load_train_data = load_train_data.remove_columns(args.remove_train_columns)
 
     # Load validation dataset
-    load_eval_data = load_dataset(args.eval_dataset_name, data_dir = args.eval_data_dir, split = args.choose_eval_split)
+    load_eval_data = load_dataset(args.eval_dataset_path, name = args.eval_dataset_name, split = args.choose_eval_split)
 
     # Remove unused columns from the validation dataset
     load_eval_data = load_eval_data.remove_columns(args.remove_eval_columns)
