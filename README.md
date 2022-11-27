@@ -46,10 +46,9 @@ print(logits)
 - [ ] Add finetuning script
 - [ ] Add inference only if someone wants to open-source LaMDA model weights
 - [ ] Add Sentencepiece tokenizer training script and integration
-- [ ] Experiment with [quantization](https://pytorch.org/docs/stable/quantization.html), to reduce required memory?
+- [ ] Experiment with [quantization](https://pytorch.org/docs/stable/quantization.html), to reduce required memory? (Update: CPU only for now.)
 - [ ] Experiment with improvements to the model:
 	- [ ] Try to see if [Mixture of Denoisers](https://arxiv.org/abs/2205.05131) can be added to the model/training process
-	- [ ] [Improved activation functions](https://arxiv.org/pdf/2111.04020.pdf)? Will these even work?
 - [ ] ???
 - [ ] Our wAIfus are real again!
 
