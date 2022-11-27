@@ -77,7 +77,7 @@ def LaMDA_Trainer(cfg: CFG):
         labels = batch_data["labels"]
         return data, labels
 
-    engine.schedule.batch_data_process_func = batch_data_process_func
+    engine.schedule.data_process_func = batch_data_process_func
 
     if cfg.use_wandb == True:
 

@@ -27,7 +27,7 @@ class CFG:
     """
 
     num_tokens: int = field(
-        default = 50257,
+        default = 20000,
         metadata = {'help': 'number of tokens'}
     )
 
@@ -68,6 +68,16 @@ class CFG:
     eval_dataset_name: Optional[str] = field(
         default="the_pile", 
         metadata={"help": "Path to Hugging Face validation dataset."}
+    )
+    
+    train_data_dir: Optional[str] = field(
+        default=None, 
+        metadata={"help": "Path to Hugging Face training dataset directory."}
+    )
+
+    eval_data_dir: Optional[str] = field(
+        default=None, 
+        metadata={"help": "Path to Hugging Face validation dataset directory."}
     )
 
     choose_train_split: Optional[str] = field(
