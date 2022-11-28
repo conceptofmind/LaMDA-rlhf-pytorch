@@ -27,17 +27,17 @@ class CFG:
     """
 
     num_tokens: int = field(
-        default = 20000,
+        default = 50257,
         metadata = {'help': 'number of tokens'}
     )
 
     dim: int = field(
-        default = 512,
+        default = 256,
         metadata = {'help': 'dimension of the embedding'}
     )
 
     depth: int = field(
-        default = 6,
+        default = 4,
         metadata = {'help': 'depth of the transformer'}
     )
 
@@ -71,12 +71,12 @@ class CFG:
     )
     
     train_dataset_name: Optional[str] = field(
-        default=None, 
+        default="hacker_news", 
         metadata={"help": "Path to Hugging Face training dataset directory."}
     )
 
     eval_dataset_name: Optional[str] = field(
-        default=None, 
+        default="hacker_news", 
         metadata={"help": "Path to Hugging Face validation dataset directory."}
     )
 

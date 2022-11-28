@@ -43,6 +43,7 @@ print(logits)
 
 ## To Do list
 - [x] Make To Do list (we are now officially more organized than Character.AI devs)
+- [ ] Find ways, modify architecture if necessary, to reduce memory usage
 - [ ] Redo config system to require less hardcoding and more flexibility (Many PCs have too little disk space to fully load The Pile, needs a way to specify subset of data (this also allows for other datasets to be used))
 - [ ] Add inference only if someone wants to open-source LaMDA model weights
 - [ ] Add finetuning script
