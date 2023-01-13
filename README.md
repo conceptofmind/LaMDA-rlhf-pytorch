@@ -1,14 +1,17 @@
 <img src="./lamda.png" width="600px"></img>
 
-# Update
+# Update (WIP)
 
 I will be adding significant updates to this repository to include:
 
 - [ ] RLHF (Reinforcement learning with human feedback)
+- [ ] Use Decoder weights from HuggingFace t5 ([Big thanks to Jason Phang](https://jasonphang.com/))
 - [ ] Integration with Web Search APIs
 - [ ] External database integration
 - [ ] Chain-of-thought prompting
 - [ ] Integration with a Calculator API
+- [ ] Remove ColossalAI  for now. Just pure PyTorch
+- [ ] Make fixes to the dataloader. Use OpenWebText instead
 
 ## LaMDA-pytorch
 Open-source pre-training implementation of Google's [LaMDA research paper](https://arxiv.org/abs/2201.08239) in PyTorch. The totally not sentient AI. This repository will cover the 2B parameter implementation of the pre-training architecture as that is likely what most can afford to train. You can review Google's latest blog post from 2022 which details LaMDA [here](https://ai.googleblog.com/2022/01/lamda-towards-safe-grounded-and-high.html). You can also view their previous blog post from 2021 on the model [here](https://blog.google/technology/ai/lamda/).
