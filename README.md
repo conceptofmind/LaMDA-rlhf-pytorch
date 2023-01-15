@@ -6,6 +6,7 @@ I will be adding significant updates to this repository to include:
 
 - [ ] RLHF (Reinforcement learning with human feedback)
 - [ ] Use Decoder weights from HuggingFace t5 ([Big thanks to Jason Phang](https://jasonphang.com/))
+- [ ] Add LoRA
 - [ ] Integration with Web Search APIs
 - [ ] External database integration
 - [ ] Chain-of-thought prompting
