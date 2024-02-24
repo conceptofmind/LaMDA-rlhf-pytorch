@@ -31,7 +31,6 @@ print(logits)
 ```
 
 ## Notes on training at scale:
-- There may be issues with NaN for fp16 training.
 - [Pipeline parallelism should be used with ZeRO 1, not ZeRO 2.](https://github.com/microsoft/DeepSpeed/discussions/1911)
 
 ## About LaMDA:
@@ -45,8 +44,6 @@ print(logits)
 - [x] Finish building pre-training model architecture
 - [x] Add pre-training script
 - [x] Integrate [Huggingface datasets](https://huggingface.co/docs/datasets/index)
-- [x] Use [The Pile](https://github.com/EleutherAI/the-pile) from [Eleuther AI](https://github.com/EleutherAI).
-- [ ] Build the [GODEL]() dataset and upload to HuggingFace datasets
 - [x] Implement GPT-2 tokenizer
 - [ ] Add Sentencepiece tokenizer training script and integration
 - [ ] Add detailed documentation
@@ -54,7 +51,6 @@ print(logits)
 - [x] Add scaling with ColossalAI.
 - [ ] Add finetuning script
 - [ ] Add pip installer with PyPI
-- [ ] Implement a JAX / Flax version as well
 - [ ] Add inference only if someone wants to open-source LaMDA model weights
 
 ## Author
